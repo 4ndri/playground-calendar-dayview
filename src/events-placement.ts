@@ -6,9 +6,9 @@ import {
   isBefore,
   areIntervalsOverlapping,
 } from 'date-fns';
-import { IEvent } from './event.model';
+import { IExtendedEvent } from './event.model';
 
-const sort = (a: IEvent, b: IEvent) => {
+const sort = (a: IExtendedEvent, b: IExtendedEvent) => {
   if (isBefore(a.startDate, b.startDate)) {
     return -1;
   }
@@ -21,10 +21,10 @@ const sort = (a: IEvent, b: IEvent) => {
   return -1;
 };
 
-export function setVerticalPosition(events: IEvent[]) {
+export function setVerticalPosition(events: IExtendedEvent[]) {
   for (const e of events) {
-    e.startDate = parseISO(e.start?.dateTime ?? '');
-    e.endDate = parseISO(e.end?.dateTime ?? '');
+    e.startDate = parseISO(e.data.start?.dateTime ?? '');
+    e.endDate = parseISO(e.data.end?.dateTime ?? '');
     e.top = differenceInMinutes(e.startDate, startOfDay(e.startDate));
     e.bottom = differenceInMinutes(endOfDay(e.endDate), e.endDate);
     e.after = [];
@@ -34,19 +34,25 @@ export function setVerticalPosition(events: IEvent[]) {
   return events;
 }
 
-function sortEvents(_events: IEvent[]) {
+function sortEvents(_events: IExtendedEvent[]) {
   const sortedEvents = _events.sort(sort);
   return sortedEvents;
 }
 
-function setHorizontalPositions(events: IEvent[]) {
-  const groups: Array<IEvent[]> = [];
-  let group: IEvent[] = [];
+function setHorizontalPositions(events: IExtendedEvent[]) {
+  const groups: Array<IExtendedEvent[]> = [];
+  let group: IExtendedEvent[] = [];
 
   //form groups and compare events
   for (let x = 0; x < events.length; x++) {
     const xe = events[x];
-    if (!xe.before || !xe.before.length) {
+    if (!xe.before) {
+      xe.before = [];
+    }
+    if (!xe.after) {
+      xe.after = [];
+    }
+    if (!xe.before.length) {
       group = [];
       groups.push(group);
     }
@@ -71,7 +77,7 @@ function setHorizontalPositions(events: IEvent[]) {
   for (const g of groups) {
     const matrix: Array<number[]> = [];
     let max = -1;
-    const columns: Array<IEvent[]> = [];
+    const columns: Array<IExtendedEvent[]> = [];
 
     // build matrix
     for (var i = 0; i < g.length; i++) {
@@ -122,7 +128,7 @@ function setHorizontalPositions(events: IEvent[]) {
   return events;
 }
 
-export function setEventsPositions(_events: IEvent[]) {
+export function setEventsPositions(_events: IExtendedEvent[]) {
   let events = setVerticalPosition(_events);
   events = sortEvents(events);
   events = setHorizontalPositions(events);

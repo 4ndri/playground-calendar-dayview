@@ -1,4 +1,4 @@
-# Algorithmus zur Platzierung von Ereignissen in der Tagesansicht
+# Algorithmus zur Positionierung von Ereignissen in der Tagesansicht
 
 Wie können Elemente anhand der Tageszeit und ohne Überschneidungen in der Tagesansicht platziert werden. Folgendes Beispiel zeigt die Tagesansicht aus dem Outlook Kalender.
 
