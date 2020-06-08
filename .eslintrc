@@ -1,0 +1,14 @@
+{
+  "extends": ["./eslint-config"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/prefer-for-of": false
+  }
+}

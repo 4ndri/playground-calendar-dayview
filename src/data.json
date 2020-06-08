@@ -1,0 +1,113 @@
+[
+  {
+    "id": "00",
+    "subject": "00",
+    "start": {
+      "dateTime": "2020-06-05T06:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T08:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "01",
+    "subject": "01",
+    
+    "start": {
+      "dateTime": "2020-06-05T07:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T07:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "02",
+    "subject": "02",
+    "start": {
+      "dateTime": "2020-06-05T07:30:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T11:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "03",
+    "subject": "03",
+    "start": {
+      "dateTime": "2020-06-05T07:30:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T08:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "04",
+    "subject": "04",
+    "start": {
+      "dateTime": "2020-06-05T09:30:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T10:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "05",
+    "subject": "05",
+    "start": {
+      "dateTime": "2020-06-05T10:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T11:00:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  
+  {
+    "id": "06",
+    "subject": "06",
+
+    "start": {
+      "dateTime": "2020-06-05T12:30:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T14:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "07",
+    "subject": "07",
+    "start": {
+      "dateTime": "2020-06-05T14:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T15:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  },
+  {
+    "id": "08",
+    "subject": "08",
+    "start": {
+      "dateTime": "2020-06-05T16:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "end": {
+      "dateTime": "2020-06-05T16:30:00.0000000",
+      "timeZone": "UTC"
+    }
+  }
+]

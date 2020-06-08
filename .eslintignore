@@ -1,0 +1,7 @@
+/coverage
+/.cache
+/.edge
+/.chrome
+/dist
+/public
+/node_modules
