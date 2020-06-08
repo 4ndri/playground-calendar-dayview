@@ -29,4 +29,5 @@ export interface IExtendedEvent {
   after: IExtendedEvent[];
   before: IExtendedEvent[];
   col: number;
+  groupIndex: number;
 }
