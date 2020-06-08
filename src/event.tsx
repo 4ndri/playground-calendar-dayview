@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import React from 'react';
-import { IEvent } from './event.model';
+import { IExtendedEvent } from './event.model';
 
-export const EventEntry: React.FC = (props: { event: IEvent }) => {
+
+export const EventEntry: React.FC = (props: { event: IExtendedEvent }) => {
   const { event } = props;
 
   const s = css`
@@ -17,5 +18,5 @@ export const EventEntry: React.FC = (props: { event: IEvent }) => {
     color: #fff;
     padding: 5px;
   `;
-  return <div css={s}>{event.subject}</div>;
+  return <div css={s}>{event.data.subject}</div>;
 };

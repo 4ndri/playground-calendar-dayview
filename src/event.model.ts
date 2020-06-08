@@ -9,19 +9,25 @@ export interface IEvent extends Event {
   resource?: IResource;
   // identifier of the room, e.g. 'sitzungszimmer@iseschool.ch'
   sourceCalendar?: string;
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-  startDate: Date;
-  endDate: Date;
-  after: IEvent[];
-  before: IEvent[];
-  maxRight: number;
 }
 
 export interface IResource {
   resourceId: string;
   label: string;
   color: string;
+}
+
+export interface IExtendedEvent {
+  id: string;
+  data: IEvent;
+  startDate: Date;
+  endDate: Date;
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+  after: IExtendedEvent[];
+  before: IExtendedEvent[];
+  col: number;
+  groupIndex: number;
 }

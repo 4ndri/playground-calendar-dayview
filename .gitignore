@@ -70,3 +70,5 @@ dist
 # browser data
 .chrome
 .edge
+
+data.test.json

@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import React, { useState, useEffect } from 'react';
 import { IExtendedEvent } from './event.model';
 import { EventEntry } from './event';
-import { setPositions } from './events-placement';
+import { setEventsPositions } from './events-placement-primitiv';
 
 const columnStyle = css`
   position: relative;
@@ -16,7 +16,7 @@ const columnStyle = css`
 const Column: React.FC = (props: { events: IExtendedEvent[] }) => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    const n = setPositions(props.events);
+    const n = setEventsPositions(props.events);
     setEvents(n);
   }, [props.events]);
 
