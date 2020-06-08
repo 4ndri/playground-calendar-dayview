@@ -113,6 +113,10 @@ export function setPositions(_events: IExtendedEvent[]) {
       }
     }
   }
+
+  //last group
+  setPositionsOnRelatedGroup(columns);
+  
   const t1 = performance.now();
   console.log(`setPositions for ${events.length} items (ms)`, t1 - t0);
   return events;
