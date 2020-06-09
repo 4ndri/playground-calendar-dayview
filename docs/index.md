@@ -2,7 +2,7 @@
 
 Wie können Elemente anhand der Tageszeit und ohne Überschneidungen in der Tagesansicht platziert werden. Folgendes Beispiel zeigt die Tagesansicht aus dem Outlook Kalender.
 
-![Outlook Tagesansicht -width12 -lg:width6][outlook-dayview]
+![Outlook Tagesansicht -width-12 -lg:width-6][outlook-dayview]
 
 In der Ansicht sind die zusammenhängenden Elemente in Gruppen eingefärbt.
 
@@ -53,7 +53,7 @@ Komplizierte Sache!!
 
 Im Grunde geht es darum, in einem ersten Schritt die Ereignisse des Tages in die Gruppen aufzuteilen, und danach die Ereignisse in der Gruppe zu positionieren.
 
-![Outlook Tagesansicht -width12 -lg:width6][outlook-dayview]
+![Outlook Tagesansicht -width-12 -lg:width-6][outlook-dayview]
 
 ### 1. Sortieren
 
@@ -67,7 +67,7 @@ Diese Sortierung ist für die Vergleiche und Gruppierung der Ereignisse notwendi
 
 Wir erstellen eine Matrix nach dem folgenden Muster. Das gezeichnete Beispiel entspricht der roten Gruppe aus dem Bild oben (Outlook-Kalender).
 
-![positioning matrix -width12 -lg:width8][calendar-pos-01]
+![positioning matrix -width-12 -lg:width-8][calendar-pos-01]
 
 In der Gruppe gibt es 6 Ereignisse, wir machen eine 6x6 Matrix.
 
@@ -85,7 +85,7 @@ Aufgrund der Sortierung können wir dies so tun, und wissen danach, dass z.B. al
 Somit haben wir folgendes Bild:
 
 | Col00 | Col01 | Col02 | Col03 | Col04 | Col05 |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| :---: | :---: | :---: | :---: | :---: | :---: |
 |   0   |       |       |       |       |       |
 |       |   1   |       |       |       |       |
 |       |       |   2   |       |       |       |
@@ -106,13 +106,13 @@ Als nächstes vergleichen wir die Ereignisse miteinander. Wenn nun "Ereignis 00"
 
 Im nächsten Schritt werden die Spalten reduziert (Ereignisse bei freien Plätzen nach links). Dies sieht bildlich folgendermassen aus:
 
-![Outlook Tagesansicht -width12 -lg:width8][calendar-pos-reduce]
+![Outlook Tagesansicht -width-12 -lg:width-8][calendar-pos-reduce]
 
 Für jedes Ereignis wird geprüft, welches die erste verfügbare Spalte ist. Wenn eine Spalte weiter links verfügbar ist, so werden die Feld-Einträge verschoben und die aktuelle Spalte gelöscht.
 
 Im letzten Schritt werden Breiten optimiert. Wenn ein Ereignis (Spalte i) über alle Zeilen in der Spalte rechts (Spalte i+1) davon Platz hat, werden die Zeilen des Ereignisses von Spalte i auf Spalte "i+1" dupliziert.
 
-![Outlook Tagesansicht -width12 -lg:width8][calendar-pos-expand]
+![Outlook Tagesansicht -width-12 -lg:width-8][calendar-pos-expand]
 
 ### Implementation
 
@@ -183,11 +183,7 @@ function setHorizontalPositions(events: IEvent[]) {
         e.left = i * width;
         e.right = Math.max(100 - (i + 1) * width, 0);
         for (let j = i + 1; j < columns.length; j++) {
-          if (
-            columns[j].some(
-              (c) => e.after.indexOf(c) > -1 || e.before.indexOf(c) > -1
-            )
-          ) {
+          if (columns[j].some((c) => e.after.indexOf(c) > -1 || e.before.indexOf(c) > -1)) {
             break;
           } else {
             e.right = Math.max(100 - (j + 1) * width, 0);
@@ -205,8 +201,7 @@ function setHorizontalPositions(events: IEvent[]) {
 
 Eine Beispiel-Implementation sieht folgendermassen aus:
 
-![Beispiel Resultat -width6 -lg:width3][calendar-result]
-
+![Beispiel Resultat -width-6 -lg:width-3][calendar-result]
 
 ## Optimieren
 
@@ -333,12 +328,71 @@ export function setPositions(_events: IExtendedEvent[]) {
 
   //last group
   setPositionsOnRelatedGroup(columns);
-  
+
   const t1 = performance.now();
   console.log(`setPositions for ${events.length} items (ms)`, t1 - t0);
   return events;
 }
 ```
+
+## Laufzeitanalyse
+
+<!-- TODO -->
+
+### Sortierung:
+
+Mergesort: `O(n*log(n))`
+
+### Positionierung:
+
+- erste Schleife
+  ```TypeScript
+  for (let x = 0; x < events.length; x++) {
+  ```
+  n
+  - erste innere Schleife
+    ```TypeScript
+    for (let c = 0; c < freeCol; c++) {
+    ```
+    n --- O(n^2)
+  - zweite innere Schleife
+    ```TypeScript
+    for (let y = x + 1; y < events.length; y++) {
+    ```
+    n --- O(n^2)
+
+* `setPositionsOnRelatedGroup(columns)`
+  - erster Loop über Ereignisse in der Gruppe
+    ```TypeScript
+    for (let i = 0; i < columns.length; i++) {
+      for (const e of columns[i]) {
+    ```
+    n
+    - zweite Schleife
+      ```TypeScript
+      for (let j = i + 1; j < columns.length; j++) {
+      ```
+      WorstCase n, mostly 1
+      - find
+        ```TypeScript
+        columns[j].some(
+        ```
+        n
+
+```
+O(Sortierung) + O(Positionierung) = Positionierung
+```
+
+```
+# WorstCase
+O(Pos)=O(n * (n * n + n * n * n )) = O(n* (n * n * n)) = O(n^4)
+```
+`setPositionsOnRelatedGroup` könnte wohl optimiert werden.
+
+
+## Links
+
+- [Implementation auf GitHub](https://github.com/4ndri/playground-calendar-dayview)
 
 
 <!-- images -->
